@@ -2,18 +2,21 @@ from requests_oauthlib import OAuth1Session
 import requests
 import os
 import json
-import schedule
+from keys import API_KEY,API_KEY_SECRET,ACCESS_TOKEN,ACCESS_TOKEN_SECRET
 
 my_key = os.environ.get("CONSUMER_KEY")
 my_secret = os.environ.get("CONSUMER_SECRET")
 my_access_token = os.environ.get("ACCESS_TOKEN")
 my_token_secret = os.environ.get("ACCESS_TOKEN_SECRET")
+##my_key = API_KEY
+#my_secret = API_KEY_SECRET
+#my_access_token = ACCESS_TOKEN
+#my_token_secret = ACCESS_TOKEN_SECRET
 
 responseAPI = requests.get('https://uselessfacts.jsph.pl/random.json?language=en')
 data = responseAPI.text
 parse_json = json.loads(data)
 temp = parse_json['text']
-
 tweet = {}
 tweet['text'] = temp
 

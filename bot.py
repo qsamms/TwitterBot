@@ -2,6 +2,7 @@ from requests_oauthlib import OAuth1Session
 import requests
 import os
 import json
+import schedule
 
 my_key = os.environ.get("CONSUMER_KEY")
 my_secret = os.environ.get("CONSUMER_SECRET")

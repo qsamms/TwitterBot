@@ -2,7 +2,6 @@ from requests_oauthlib import OAuth1Session
 import requests
 import os
 import json
-from keys import API_KEY,API_KEY_SECRET,ACCESS_TOKEN,ACCESS_TOKEN_SECRET
 
 my_key = os.environ.get("CONSUMER_KEY")
 my_secret = os.environ.get("CONSUMER_SECRET")

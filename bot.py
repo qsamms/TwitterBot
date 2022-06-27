@@ -5,6 +5,8 @@ import json
 
 my_key = os.environ.get("CONSUMER_KEY")
 my_secret = os.environ.get("CONSUMER_SECRET")
+my_access_token = os.environ.get("ACCESS_TOKEN")
+my_token_secret = os.environ.get("ACCESS_TOKEN_SECRET")
 
 responseAPI = requests.get('https://uselessfacts.jsph.pl/random.json?language=en')
 data = responseAPI.text
@@ -14,41 +16,11 @@ temp = parse_json['text']
 tweet = {}
 tweet['text'] = temp
 
-request_token_url = "https://api.twitter.com/oauth/request_token?oauth_callback=oob&x_auth_access_type=write"
-oauth = OAuth1Session(my_key,client_secret = my_secret)
-
-try:
-    fetch_response = oauth.fetch_request_token(request_token_url)
-except ValueError:
-    print("Error with consumer key or secret")
-
-resource_owner_key = fetch_response.get("oauth_token")
-resource_owner_secret = fetch_response.get("oauth_token_secret")
-print(f"OAuth token: {resource_owner_key}")
-
-base_authorization_url = "https://api.twitter.com/oauth/authorize"
-authorization_url = oauth.authorization_url(base_authorization_url)
-print(f"Please go here and authorize: {authorization_url}")
-verifier = input("Paste the PIN here: ")
-
-access_token_url = "https://api.twitter.com/oauth/access_token"
 oauth = OAuth1Session(
     my_key,
     client_secret = my_secret,
-    resource_owner_key = resource_owner_key,
-    resource_owner_secret = resource_owner_secret,
-    verifier = verifier
-)
-oauth_tokens = oauth.fetch_access_token(access_token_url)
-
-access_token = oauth_tokens["oauth_token"]
-access_token_secret = oauth_tokens["oauth_token_secret"]
-
-oauth = OAuth1Session(
-    my_key,
-    client_secret = my_secret,
-    resource_owner_key = access_token,
-    resource_owner_secret = access_token_secret
+    resource_owner_key = my_access_token,
+    resource_owner_secret = my_token_secret
 )
 
 response = oauth.post("https://api.twitter.com/2/tweets",json = tweet)

@@ -30,7 +30,7 @@ response = oauth.post("https://api.twitter.com/2/tweets",json = tweet)
 
 if(response.status_code != 201):
     raise Exception(
-        "Request returned an error: {} {}".fomrat(response.stauts_code,response.text)
+        "Request returned an error: {} {}".format(response.status_code,response.text)
     )
 
 print("Response code: {}".format(response.status_code))
